@@ -182,9 +182,9 @@ sampling = {
     'gyr_x':  'mean',
     'gyr_y':  'mean',
     'gyr_z':  'mean',
+    'participant':  'last',
     'label':  'last',
     'category':  'last',
-    'participant':  'last',
     'set':  'last'
 }
 
