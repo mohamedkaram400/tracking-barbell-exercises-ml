@@ -29,7 +29,7 @@ f = files[0]
 
 participant = f.split("-")[0][-1]
 label = f.split("-")[1]
-category = f.split("-")[2].split('_')[0]
+category = f.split("-")[2].rstrip('123').rstrip('_MetaWear_2019')
 acc_or_gyr = f.split("-")[-1].split('-')[0].split('_')[-3]
 
 # print(acc_or_gyr)
@@ -54,7 +54,7 @@ gyr_set = 1
 for f in files:
     participant = f.split("-")[0][-1]
     label = f.split("-")[1]
-    category = f.split("-")[2].split('_')[0]
+    category = f.split("-")[2].rstrip('123').rstrip('_MetaWear_2019')
 
     df = pd.read_csv(f)
 
@@ -72,7 +72,7 @@ for f in files:
         gyr_set += 1
         gyr_df = pd.concat([gyr_df, df])
 
-    print(acc_df.head(10), gyr_df.head(10))   # For show extracted data
+print(acc_df.head(10), gyr_df.head(10))   # For show extracted data
 
 print(acc_df.shape, gyr_df.shape)   # For show extracted data
 
@@ -114,7 +114,7 @@ def read_data_from_files(files):
     for f in files:
         participant = f.split("-")[0][-1]
         label = f.split("-")[1]
-        category = f.split("-")[2].split('_')[0]
+        category = f.split("-")[2].rstrip('123').rstrip('_MetaWear_2019')
 
         df = pd.read_csv(f)
 
@@ -125,7 +125,7 @@ def read_data_from_files(files):
         if 'Accelerometer' in f:
             df['set'] = acc_set
             acc_set += 1
-            acc_df = pd.concat([gyr_df, df])
+            acc_df = pd.concat([acc_df, df])
 
         if 'Gyroscope' in f:
             df['set'] = gyr_set
@@ -161,9 +161,9 @@ data_merged.columns = [
     'gyr_x',
     'gyr_y',
     'gyr_z',
+    'participant',
     'label',
     'category',
-    'participant',
     'set'
 ]
 
@@ -173,7 +173,6 @@ data_merged.columns = [
 
 # Accelerometer:    12.500HZ
 # Gyroscope:        25.000Hz
-
 
 sampling = {
     'acc_x':  'mean',
