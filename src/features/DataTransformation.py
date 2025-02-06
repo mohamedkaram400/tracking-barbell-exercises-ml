@@ -6,19 +6,24 @@ import pandas as pd
 # This class removes the high frequency data (that might be considered noise) from the data.
 # We can only apply this when we do not have missing values (i.e. NaN).
 class LowPassFilter:
-    
-    def __init__(self):
-        pass
+    def low_pass_filter(
+        self,
+        data_table,
+        col,
+        sampling_frequency,
+        cutoff_frequency,
+        order=5,
+        phase_shift=True,
+    ):
+        
+        nyq = 0.5 * sampling_frequency
+        cut = cutoff_frequency / nyq
 
-    def butter_lowpass(self, cutoff, fs, order=4):
-        nyquist = 0.5 * fs  # Nyquist frequency
-        normal_cutoff = cutoff / nyquist  # Normalize cutoff frequency
-        b, a = butter(order, normal_cutoff, btype='low', analog=False)
-        return b, a
-
-    def apply_lowpass_lfilter(self, data_table, col, fs, cutoff, order=4):
-        b, a = self.butter_lowpass(cutoff, fs, order)
-        data_table[col + "_lowpass"] = filtfilt(b, a, data_table[col], padlen=10)  # Save filtered data
+        b, a = butter(order, cut, btype="low", output="ba", analog=False)
+        if phase_shift:
+            data_table[col + "_lowpass"] = filtfilt(b, a, data_table[col])
+        else:
+            data_table[col + "_lowpass"] = lfilter(b, a, data_table[col])
         return data_table
 
 

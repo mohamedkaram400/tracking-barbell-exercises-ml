@@ -65,7 +65,7 @@ for f in files:
     if 'Accelerometer' in f:
         df['set'] = acc_set
         acc_set += 1
-        acc_df = pd.concat([gyr_df, df])
+        acc_df = pd.concat([acc_df, df])
 
     if 'Gyroscope' in f:
         df['set'] = gyr_set
