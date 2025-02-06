@@ -18,8 +18,8 @@ outlier_columns = list(df.columns[:6])
 # --------------------------------------------------------------
 
 plt.style.use('fivethirtyeight')
-plt.rcParams['figuer.figsize'] = (20, 5)
-plt.rcParams['figuer.dpi'] = 100
+plt.rcParams['figure.figsize'] = (20, 5) 
+plt.rcParams['figure.dpi'] = 100        
 
 # df[['acc_x', 'label']].boxplot(by='label', figsize=(20, 10))
 
@@ -242,8 +242,8 @@ dataset = mark_outliers_chauvenet(df, col)
 dataset[dataset['gyr_z_outlier']]
 
 dataset.loc[dataset['gyr_z_outlier'], 'gyr_z'] = np.nan
-# Create a loop
 
+# Create a loop
 outliers_removed_df = df.copy()
 for col in outlier_columns:
     for label in df['label'].unique():
