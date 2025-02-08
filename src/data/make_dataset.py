@@ -4,12 +4,13 @@ from glob import glob
 # --------------------------------------------------------------
 # Read single CSV file
 # --------------------------------------------------------------
+
 simple_file_acc = pd.read_csv('../../data/raw/MetaMotion/A-bench-heavy2-rpe8_MetaWear_2019-01-11T16.10.08.270_C42732BE255C_Accelerometer_12.500Hz_1.4.4.csv')
 
 simple_file_gyr = pd.read_csv('../../data/raw/MetaMotion/A-bench-heavy2-rpe8_MetaWear_2019-01-11T16.10.08.270_C42732BE255C_Gyroscope_25.000Hz_1.4.4.csv')
 
-# print(simple_file_acc.shape)
-# print(simple_file_gyr.head())
+simple_file_acc.shape
+simple_file_gyr.head()
 
 # --------------------------------------------------------------
 # List all data in data/raw/MetaMotion
@@ -17,22 +18,18 @@ simple_file_gyr = pd.read_csv('../../data/raw/MetaMotion/A-bench-heavy2-rpe8_Met
 
 files = glob('../../data/raw/MetaMotion/*.csv')
 
-# print(len(files))
 # --------------------------------------------------------------
 # Extract features from filename
 # --------------------------------------------------------------
 
 data_path = '../../data/raw/MetaMotion/'
-f = files[0]
 
-# print(f)
+f = files[0]
 
 participant = f.split("-")[0][-1]
 label = f.split("-")[1]
 category = f.split("-")[2].rstrip('123').rstrip('_MetaWear_2019')
 acc_or_gyr = f.split("-")[-1].split('-')[0].split('_')[-3]
-
-# print(acc_or_gyr)
 
 df = pd.read_csv(f)
 
@@ -40,7 +37,6 @@ df['participant'] = participant
 df['label'] = label
 df['category'] = category
 
-# print(df)
 # --------------------------------------------------------------
 # Read all files
 # --------------------------------------------------------------
@@ -76,7 +72,6 @@ print(acc_df.head(10), gyr_df.head(10))   # For show extracted data
 
 print(acc_df.shape, gyr_df.shape)   # For show extracted data
 
-
 # --------------------------------------------------------------
 # Working with datetimes
 # --------------------------------------------------------------
@@ -96,7 +91,6 @@ del acc_df['elapsed (s)']
 del gyr_df['epoch (ms)']
 del gyr_df['time (01:00)']
 del gyr_df['elapsed (s)']
-
 
 # --------------------------------------------------------------
 # Turn into function
@@ -196,7 +190,6 @@ data_resampled.info()
 
 data_resampled['set'] = data_resampled['set'].astype('int')
 
-print(data_resampled)
 # --------------------------------------------------------------
 # Export dataset
 # --------------------------------------------------------------

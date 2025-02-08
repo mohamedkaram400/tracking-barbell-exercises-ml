@@ -54,6 +54,7 @@ def plot_binary_outliers(dataset, col, outlier_col, reset_index):
         dataset[col][~dataset[outlier_col]],
         "+",
     )
+    
     # Plot data points that are outliers in red
     ax.plot(
         dataset.index[dataset[outlier_col]],
