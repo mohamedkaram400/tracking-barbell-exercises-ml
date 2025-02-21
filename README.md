@@ -74,6 +74,3 @@ Data file not found: Ensure data/interim/01_data_processed.pkl exists.
 
 ### 📜 License
 This project is open-source under the MIT License.
-
-Now you can just **copy and paste** this into your `README.md` file! 🚀 Let me know if you need any modifications. 😊
-
